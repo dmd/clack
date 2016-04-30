@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from numpy import rot90, array
 import sys
 import os
 import fileinput
@@ -50,6 +51,11 @@ def display_write(lines):
     talker.send_picture(0, d[0])
     talker.send_picture(1, d[1])
 
+def rotate(arr):
+    line2d = [list(row) for row in arr]
+    rotated = rot90(array(line2d))
+    return [''.join(row) for row in rotated]
+
 app = Flask(__name__)
 
 @app.route('/clack/', methods=['POST'])
@@ -57,8 +63,13 @@ def clack_set():
     """ send a new bitmap to the display """
 
     reqdata = request.form
+    bitmap = reqdata['bitmap'].split('\n')
 
-    display_write(reqdata['bitmap'].split('\n'))
+    # is it wide? rotate.
+    if len(bitmap[0]) == 28:
+        bitmap = rotate(bitmap)
+
+    display_write(bitmap)
     return jsonify(status='success')
 
 
