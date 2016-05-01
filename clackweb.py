@@ -62,8 +62,7 @@ app = Flask(__name__)
 def clack_set():
     """ send a new bitmap to the display """
 
-    reqdata = request.form
-    bitmap = reqdata['bitmap'].split('\n')
+    bitmap = request.form['bitmap'].split('\n')
 
     # is it wide? rotate.
     if len(bitmap[0]) == 28:
