@@ -74,6 +74,5 @@ def clack_set():
 
 
 if __name__ == '__main__':
-    #main_tx(sys.argv[1])
     app.run(host='0.0.0.0', port=8080, debug=True)
     
