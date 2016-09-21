@@ -24,7 +24,7 @@ def banner(message, fontname='banner'):
 
 
 def window(template, start):
-    screen = template[:, start:start+28]
+    screen = template[:, start:start+WIDTH]
     return '\n'.join([''.join(a) for a in screen])
     
 
