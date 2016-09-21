@@ -50,7 +50,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.font:
-        whole_banner, length = banner(args.message, '8x13.bdf', 'bdf')
+        whole_banner, length = banner(args.message, args.font, 'bdf')
     else:
         whole_banner, length = banner(args.message)
 
