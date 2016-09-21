@@ -1,4 +1,4 @@
-Controller for the [KRUSH Flip Clock](https://www.krushflipclock.com/), [a flip disc display](https://en.wikipedia.org/wiki/Flip-disc_display).
+Controller for the [KRUSH Flip Clock](https://www.krushflipclock.com/), a [flip disc display](https://en.wikipedia.org/wiki/Flip-disc_display).
 
 Talk directly to the RS485 connection (remove the built in Photon controller).
 
