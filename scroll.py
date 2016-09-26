@@ -4,7 +4,7 @@ import os, sys
 import argparse
 from glob import glob
 import requests
-import numpy
+import numpy as np
 from clack import HEIGHT, WIDTH, CLACK_URL, blank_screen, read_font, clack_post
 import time
 from bdf import bdf
@@ -14,20 +14,20 @@ HEIGHT, WIDTH = WIDTH, HEIGHT  # we're going the other way
 def banner(message, fontname='banner', fonttype='file'):
     if fonttype == 'file':
         font = read_font(fontname)
-        bitmap_all = numpy.hstack([font[ch] for ch in message])
+        bitmap_all = np.hstack([font[ch] for ch in message])
     elif fonttype == 'bdf':
         b = bdf(fontname)
-        bitmap_all = numpy.hstack([b.letter(ch) for ch in message])
+        bitmap_all = np.hstack([b.trim_letter(ch) for ch in message])
     else:
         raise ValueError('fonttype must be file or bdf')
 
-    length = numpy.shape(bitmap_all)[1]
+    length = np.shape(bitmap_all)[1]
     template = blank_screen(HEIGHT, length + WIDTH*2)  # blank at end and start
 
     # place the bitmap on the template.
     
     # how high is the image to be placed (i.e., the font)?
-    fontheight = numpy.shape(bitmap_all)[0]
+    fontheight = np.shape(bitmap_all)[0]
     pad = int((HEIGHT - fontheight)/2)
 
     if fontheight > 14:
@@ -40,7 +40,7 @@ def banner(message, fontname='banner', fonttype='file'):
 
 def window(template, start):
     screen = template[:, start:start+WIDTH]
-    return '\n'.join([''.join(a) for a in screen])
+    return '\n'.join([''.join(a) for a in np.rot90(screen, 2)])
     
 
 if __name__ == '__main__':

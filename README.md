@@ -7,3 +7,4 @@ send data via:
     curl  --data-urlencode "bitmap@filename" http://localhost:8080/clack/
 
 
+The 'scroll' program lets you scroll abitrary text, optionally using X Windows BDF fonts 14 pixels or shorter.

@@ -5,10 +5,9 @@ import os
 from glob import glob
 import requests
 
-
 WIDTH, HEIGHT = 14, 28
-
 CLACK_URL = 'http://your-clackweb-host:8080/clack/'
+
 
 def blank_screen(height=HEIGHT, width=WIDTH):
     """ a blank matrix """
@@ -32,5 +31,3 @@ def clack_post(screen):
     """ send a screen to the clack """
 
     requests.post(CLACK_URL, data={'bitmap': screen})
-
-
