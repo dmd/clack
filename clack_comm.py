@@ -21,7 +21,7 @@ class PortTalker(object):
         self.sp.write(packed)
 
 def make_data(filename):
-    # input is a 28 line x 14 column text file consisting of spaces and x
+    # input is a 28 line x 14 column text file consisting of '.' and 'x' characters
     # output is { 0: [ length 14 list of ints ], 1: [ same ] }
     
     d = {0: [], 1: []}
