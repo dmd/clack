@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/python3
 
 import os, sys
 import argparse
@@ -40,7 +40,7 @@ def banner(message, fontname='banner', fonttype='file'):
 
 def window(template, start):
     screen = template[:, start:start+WIDTH]
-    return '\n'.join([''.join(a) for a in np.rot90(screen, 2)])
+    return b'\n'.join([b''.join(a) for a in np.rot90(screen, 2)])
     
 
 if __name__ == '__main__':

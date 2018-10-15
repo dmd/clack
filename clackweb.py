@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from numpy import rot90, array
 import sys
@@ -11,8 +11,7 @@ from flask import Flask, request, jsonify
 
 class PortTalker(object):
     def __init__(self, port):
-        self.sp = serial.Serial(port, 57600)
-        self.sp.setTimeout(0.02)
+        self.sp = serial.Serial(port, 57600, timeout=0.02)
         self.buff = ''
 
     def send_picture(self, half, data):

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/python3
 
 import numpy as np
 import os
@@ -20,10 +20,11 @@ def read_font(fontname):
     """ a dict of symbol bitmaps """
 
     font = {}
-    symbol_files = glob('font/' + fontname + '/*')
+    fontdir = os.path.dirname(os.path.realpath(__file__)) + '/font/'
+    symbol_files = glob(fontdir + fontname + '/*')
     for symbol_file in symbol_files:
         symbol = os.path.basename(symbol_file)
-        font[symbol] = np.array([list(x) for x in np.loadtxt(symbol_file, dtype='string')])
+        font[symbol] = np.array([list(x) for x in np.loadtxt(symbol_file, dtype='str')])
     return font
 
 
