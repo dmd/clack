@@ -6,7 +6,7 @@ from glob import glob
 import requests
 
 WIDTH, HEIGHT = 14, 28
-CLACK_URL = 'http://ddrucker-pi:8080/clack/'
+CLACK_URL = 'http://your-clack-host:8080/clack/'
 
 
 def blank_screen(height=HEIGHT, width=WIDTH):
