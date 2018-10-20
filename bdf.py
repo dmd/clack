@@ -6,7 +6,7 @@ import os, sys
 
 class bdf:
     def __init__(self, fontfilename):
-        self.bdffont = reader.read_bdf(open(fontfilename))
+        self.bdffont = reader.read_bdf(open(fontfilename, 'rb'))
 
     def letter(self, let):
         character = self.bdffont.glyphs_by_codepoint[ord(let)].data

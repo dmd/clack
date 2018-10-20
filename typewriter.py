@@ -6,7 +6,7 @@ import numpy as np
 from clack import HEIGHT, WIDTH, CLACK_URL, blank_screen, read_font, clack_post
 import time
 # bdf library on python3 is broken
-#from bdf import bdf
+from bdf import bdf
 from getch import getche
 import string
 
@@ -18,7 +18,7 @@ def banner(message, fontname='banner', fonttype='file'):
         bitmap_all = np.hstack([font[ch] for ch in message if ch in font])
     elif fonttype == 'bdf':
         b = bdf(fontname)
-        bitmap_all = np.hstack([b.trim_letter(ch) for ch in message if ch in b])
+        bitmap_all = np.hstack([b.trim_letter(ch) for ch in message])
     else:
         raise ValueError('fonttype must be file or bdf')
 
@@ -48,10 +48,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Show a scrolling message as you type. Ignores any characters not in the font.')
     parser.add_argument('--font', type=str, help='A BDF font file, max 14 tall.')
     args = parser.parse_args()
-
-    if args.font:
-        print("BDF fonts currently broken on Python 3.")
-        sys.exit(1)
 
     message = ''
 
