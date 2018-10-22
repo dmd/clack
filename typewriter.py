@@ -5,7 +5,6 @@ import argparse
 import numpy as np
 from clack import HEIGHT, WIDTH, CLACK_URL, blank_screen, read_font, clack_post
 import time
-# bdf library on python3 is broken
 from bdf import bdf
 from getch import getche
 import string
