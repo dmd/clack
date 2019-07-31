@@ -24,6 +24,8 @@ def read_font(fontname):
     symbol_files = glob(fontdir + fontname + '/*')
     for symbol_file in symbol_files:
         symbol = os.path.basename(symbol_file)
+        if symbol.startswith('u_'):
+            symbol = symbol[-1]
         font[symbol] = np.array([list(x) for x in np.loadtxt(symbol_file, dtype='str')])
     return font
 
