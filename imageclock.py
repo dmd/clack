@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 from __future__ import print_function
 import numpy as np
@@ -8,7 +8,7 @@ from clack import *
 from clackutils import clock
 
 CLACKDIR = os.path.dirname(os.path.realpath(__file__))
-ERROR = open(CLACKDIR + '/errorcsa.txt').read()
+ERROR = open(CLACKDIR + '/error.txt').read()
 
 def create_display(rotate=False, image='none'):
     """ generate the output for posting to the clack """
