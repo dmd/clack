@@ -23,7 +23,10 @@ def read_font(fontname):
     fontdir = os.path.dirname(os.path.realpath(__file__)) + '/font/'
     symbol_files = glob(fontdir + fontname + '/*')
     for symbol_file in symbol_files:
-        symbol = os.path.basename(symbol_file)
+        if os.path.basename(symbol_file) == 'SPACE':
+            symbol = ' '
+        else:
+            symbol = os.path.basename(symbol_file)
         if symbol.startswith('u_'):
             symbol = symbol[-1]
         font[symbol] = np.array([list(x) for x in np.loadtxt(symbol_file, dtype='str')])
