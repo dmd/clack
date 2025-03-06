@@ -93,40 +93,79 @@ class ClackTkEditor:
     
     def get_cell_coords(self, event):
         """Convert canvas coordinates to grid coordinates"""
+        # Get the current dimensions of the screen
+        current_height, current_width = self.screen.shape
+        
+        # Simple conversion from screen coordinates to grid coordinates
         x = event.x // self.cell_size
         y = event.y // self.cell_size
+        
+        # Make sure we don't exceed the bounds
+        if x >= current_width:
+            x = current_width - 1
+        if y >= current_height:
+            y = current_height - 1
+            
         return x, y
     
     def on_mouse_down(self, event):
         self.drawing = True
         x, y = self.get_cell_coords(event)
-        if 0 <= x < WIDTH and 0 <= y < HEIGHT:
-            self.toggle_cell(x, y)
+        
+        # Get the current dimensions of the screen
+        current_height, current_width = self.screen.shape
+        
+        # Ensure coordinates are within bounds
+        if not (0 <= x < current_width and 0 <= y < current_height):
+            return
+            
+        # Set current_mode based on first clicked cell - inverse of current state
+        if self.screen[y, x] == b'.':
+            self.current_mode = 'draw'
+        else:
+            self.current_mode = 'erase'
+            
+        self.toggle_cell(x, y)
     
     def on_mouse_drag(self, event):
-        if self.drawing:
-            x, y = self.get_cell_coords(event)
-            if 0 <= x < WIDTH and 0 <= y < HEIGHT:
-                # Get the current state of the cell
-                current_state = self.screen[y, x].decode('utf-8')
-                
-                # If the cell state doesn't match our current mode, toggle it
-                if (self.current_mode == 'draw' and current_state == '.') or \
-                   (self.current_mode == 'erase' and current_state == 'x'):
-                    self.toggle_cell(x, y)
+        if not self.drawing:
+            return
+            
+        x, y = self.get_cell_coords(event)
+        
+        # Get the current dimensions of the screen
+        current_height, current_width = self.screen.shape
+        
+        # Ensure coordinates are within bounds
+        if not (0 <= x < current_width and 0 <= y < current_height):
+            return
+            
+        # Get the current state of the cell
+        current_state = self.screen[y, x].decode('utf-8')
+        
+        # If the cell state doesn't match our current mode, toggle it
+        # This ensures continuous drawing/erasing behavior
+        if (self.current_mode == 'draw' and current_state == '.') or \
+           (self.current_mode == 'erase' and current_state == 'x'):
+            self.toggle_cell(x, y)
     
     def on_mouse_up(self, event):
         self.drawing = False
     
     def toggle_cell(self, x, y):
         """Toggle a cell between on and off"""
-        if self.screen[y, x] == b'.':
+        # Get the current dimensions of the screen
+        current_height, current_width = self.screen.shape
+        
+        # Ensure coordinates are within bounds
+        if not (0 <= x < current_width and 0 <= y < current_height):
+            return
+            
+        if self.current_mode == 'draw':
             self.screen[y, x] = b'x'
-            self.current_mode = 'draw'
             self.canvas.itemconfig(self.cells[(x, y)], fill='white')
-        else:
+        else:  # erase mode
             self.screen[y, x] = b'.'
-            self.current_mode = 'erase'
             self.canvas.itemconfig(self.cells[(x, y)], fill='black')
         
         # Update the display immediately after each cell change
@@ -206,23 +245,6 @@ class ClackTkEditor:
         
         # Post to display
         self.post_to_display()
-    
-    def get_cell_coords(self, event):
-        """Convert canvas coordinates to grid coordinates"""
-        # Get the current dimensions of the screen
-        current_height, current_width = self.screen.shape
-        
-        # Simple conversion from screen coordinates to grid coordinates
-        x = event.x // self.cell_size
-        y = event.y // self.cell_size
-        
-        # Make sure we don't exceed the bounds
-        if x >= current_width:
-            x = current_width - 1
-        if y >= current_height:
-            y = current_height - 1
-            
-        return x, y
     
     def flip_horizontal(self):
         """Flip the display horizontally (left/right)"""
