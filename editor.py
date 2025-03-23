@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# editor.py was 100% vibe-coded by Claude
+
 import tkinter as tk
 import numpy as np
 import sys
